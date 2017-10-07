@@ -17,19 +17,6 @@ class Annotation:
   # The annotation name prefix
   _AT_prefix = '_AT_'
 
-  @staticmethod
-  def create(name):
-    """
-    Returns a decorator which will create an
-    annotation from the given validator
-
-    :param name: the name of the annotation
-
-    :return: decorator which will create an
-             annotation from the given validator
-    """
-    return lambda validator: Annotation(name, validator)
-
   @classmethod
   def _AT_filter(cls, key):
     """
@@ -52,16 +39,13 @@ class Annotation:
     """
     return tuple(filter(cls._AT_filter, obj.__dict__.keys()))
 
-  def __init__(self, key, valid=lambda obj: True):
+  def __init__(self, key):
     """
     Creates an annotation
 
     :param key: the key of the annotation
-    :param valid: validation function for objects to
-                  annotate (default valid)
     """
     self._key = key
-    self._valid = valid
 
   @property
   def _AT_full_name(self):
@@ -80,11 +64,8 @@ class Annotation:
 
     :return: the object that the annotation was applied to
     """
-    if self._valid(obj):
-      obj.__setattr__(self._AT_full_name, True)
-      return obj
-    else:
-      raise Exception('Invalid object being annotated: ' + str(obj))
+    obj.__setattr__(self._AT_full_name, True)
+    return obj
 
   def match(self, obj):
     """
