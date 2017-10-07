@@ -7,3 +7,4 @@ Author:  Anshul Kharbanda
 Created: 10 - 6 - 2017
 """
 from .annotation_test import AnnotationTest
+from .access_test import GetSetTest, GetTest, SetTest

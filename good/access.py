@@ -76,4 +76,4 @@ class Set(GetSet):
 
         :raises Exception: Set's cannot be get
         """
-        return instance.__getattribute__(self._key)
+        raise Exception('Set access {0} cannot be get'.format(self._key))

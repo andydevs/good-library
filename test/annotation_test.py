@@ -12,7 +12,7 @@ import unittest
 
 class AnnotationTest(unittest.TestCase):
     """
-    Tests the annotation object
+    Tests the Annotation object
 
     Author:  Anshul Kharbanda
     Created: 10 - 6 - 2017
