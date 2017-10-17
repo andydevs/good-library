@@ -8,4 +8,4 @@ Created: 10 - 6 - 2017
 """
 from .access_test import GetTest, SetTest, GetSetTest
 from .annotation_test import AnnotationTest
-from .inithandlers_test import NamedInitTest, UnderscoreInitTest
+from .init_handlers_test import NamedInitTest, UnderscoreInitTest

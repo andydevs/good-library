@@ -8,7 +8,7 @@ Created: 10 - 6 - 2017
 """
 import unittest
 import good
-from good.inithandlers import NamedInit, UnderscoreInit
+from good.handlers.init import NamedInit, UnderscoreInit
 
 class Person1:
     """

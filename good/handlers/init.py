@@ -6,7 +6,9 @@ A collection of programming and syntax tools for experienced Python users
 Author:  Anshul Kharbanda
 Created: 10 - 6 - 2017
 """
-class NamedInit:
+from . import InstanceHandler
+
+class NamedInit(InstanceHandler):
     """
     Handles initialization of an object by defining named parameters according
     to specifications given in instantiation
@@ -67,27 +69,6 @@ class NamedInit:
         for name in self._names:
             if not hasattr(instance, self._prefix+name):
                 raise Exception('Required name \'{}\' is not given!'.format(name))
-
-    def __get__(self, instance, owner=None):
-        """
-        Returns the bound handler for the given instance
-
-        :param instance: the instance to bind to
-        :param owner: the class of the instance to bind to
-
-        :return: bound handler
-        """
-        def __handle(*args, **kwargs):
-            """
-            Bound handler
-
-            :param *args: positional arguments
-            :param **kwargs: keyword arguments
-            """
-            return self(instance, *args, **kwargs)
-
-        # Return handler
-        return __handle
 
 class UnderscoreInit(NamedInit):
     """
