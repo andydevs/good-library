@@ -1,5 +1,7 @@
 # The Good Library
 
+"Everyone hates software. It's messy and it gets everywhere." - Sam Gallagher 2017
+
 A collection of programming and syntax tools for experienced Python users
 
 _The Normal Way_
