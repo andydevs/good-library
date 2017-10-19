@@ -45,7 +45,14 @@ class Person:
         """
         return self._age
 
-    def set_thoughts(self, value):
+    @property
+    def thoughts(self):
+        """
+        Block get access for _thoughts
+        """
+        raise Exception('Cannot GET thoughts')
+    @thoughts.setter
+    def thoughts(self, value):
         """
         Set access for _thoughts
 
@@ -81,6 +88,7 @@ class Person:
 
 _The Good Way_
 ```python
+from good.interface import Interface, implements
 from good.access import Get, Set, GetSet
 from good.annotation import Annotation
 from good.inits import UnderscoreInit
@@ -89,6 +97,24 @@ from random import randint
 # Annotations
 random_outcome = Annotation('random_outcome')
 
+@Interface
+class Thinker:
+    """
+    An entity that thinks
+
+    Author:  Steven Schmutz
+    Created: 5 - 23 - 2028
+    """
+    @random_outcome
+    def ask_for_thoughts(self):
+        """
+        Ask the thinker for thoughts, and it may respond
+
+        :return: the thinker's thoughts on chance
+        """
+        pass
+
+@implements(Thinker)
 class Person:
     """
     An ordinary person
