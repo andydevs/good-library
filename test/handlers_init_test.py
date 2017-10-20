@@ -47,8 +47,8 @@ class NameInitHandlerTest(unittest.TestCase):
     init_doc = """
         Initializes the Person1 object
 
-        :param name:
-        :param age:
+        :param name: the name member of the object
+        :param age: the age member of the object
         """
     def test_doc(self):
         """

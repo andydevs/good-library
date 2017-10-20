@@ -86,7 +86,7 @@ class NameInitHandler(InstanceHandler):
         """.format(
             klass=klass.__name__,
             params="""
-        """.join(map(':param {}:'.format, self._names))
+        """.join(map(':param {}: the {} member of the object'.format, self._names))
         )
 
 class UnderscoreInitHandler(NameInitHandler):
