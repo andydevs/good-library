@@ -8,14 +8,14 @@ Created: 10 - 6 - 2017
 """
 from . import InstanceHandler
 
-class NamedInit(InstanceHandler):
+class NameInitHandler(InstanceHandler):
     """
     Handles initialization of an object by defining named parameters according
     to specifications given in instantiation
 
     ...
     class Person:
-        ___init___ = NamedInit(
+        ___init___ = NameInitHandler(
             names=('name', 'age', 'apparel', 'thoughts')
             defaults={
                 'apparel': 'Pajamas',
@@ -70,7 +70,7 @@ class NamedInit(InstanceHandler):
             if not hasattr(instance, self._prefix+name):
                 raise Exception('Required name \'{}\' is not given!'.format(name))
 
-class UnderscoreInit(NamedInit):
+class UnderscoreInitHandler(NameInitHandler):
     """
     NamedInit that appends an underscore to each name in the init
 
@@ -78,3 +78,12 @@ class UnderscoreInit(NamedInit):
     Created: 10 - 13 - 2017
     """
     _prefix = '_'
+
+class DunderInitHandler(NameInitHandler):
+    """
+    NamedInit that appends an dunder, or double-underscore, to each name in the init
+
+    Author:  Anshul Kharbanda
+    Created: 10 - 13 - 2017
+    """
+    _prefix = '__'
