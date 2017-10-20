@@ -96,15 +96,8 @@ from good.annotation import Annotation
 from good.inits import UnderscoreInit
 from random import randint
 
-@Annotation
-class RandomOutcome:
-    """
-    Returns a random outcome
-
-    Author:  Steven Schmutz
-    Created: 10 - 19 - 2018
-    """
-    pass
+# Annotations
+random_outcome = Annotation('random_outcome')
 
 @Interface
 class Thinker:
@@ -145,7 +138,7 @@ class Person:
         }
     )
 
-    @RandomOutcome
+    @random_outcome
     def ask_for_thoughts(self):
         """
         Returns the person's thoughts on chance
@@ -279,8 +272,40 @@ class Person:
     )
 ```
 
-`UnderscoreInitHandler` is a type of `NamedInitHandler` that appends an underscore `_` to each name before setting it in the instance. `DunderInitHandler` adds a dunder, or a double-underscore `__` before each name 
+`UnderscoreInitHandler` is a type of `NamedInitHandler` that appends an underscore `_` to each name before setting it in the instance. `DunderInitHandler` adds a dunder, or a double-underscore `__` before each name
 
 ### Annotations
 
-Annotations serve as markers for functions and classes containing information that is accessible by both humans and computers.
+Annotations serve as markers for functions and classes containing information that is accessible by both humans and computers. Annotations are defined using the Annotation class.
+
+```python
+from good.annotation import Annotation
+
+annotation = Annotation('annotation')
+```
+
+Classes and functions can then be 'annotated' using the created annotation via decorator syntax.
+
+```python
+from good.annotation import Annotation
+
+annotation = Annotation('annotation')
+
+@annotation
+def my_function(arg1, arg2):
+    return arg1+arg2
+```
+
+Annotation objects also contain the `match` method, which is used to match objects that have the annotation object
+
+```python
+from good.annotation import Annotation
+
+annotation = Annotation('annotation')
+
+@annotation
+def my_function(arg1, arg2):
+    return arg1+arg2
+
+annotation.match(my_function)
+```
