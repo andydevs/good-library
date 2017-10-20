@@ -8,7 +8,7 @@ Created: 10 - 6 - 2017
 """
 import unittest
 import good
-from good.interface import ISpec, Interface, implements
+from good.interface import ISpec, Interface, Implements
 from inspect import getfullargspec
 
 class TestInterface1:
@@ -203,3 +203,17 @@ class InterfaceTest(unittest.TestCase):
                          TestClass)
         with self.assertRaises(Exception):
             self.ITestInterface3.assert_implemented(TestClass)
+
+class ImplementsTest(unittest.TestCase):
+    """
+    Tests Implements function
+    """
+    ITestInterface1 = Interface(TestInterface1)
+
+    def test_function(self):
+        """
+        Tests Implements function
+        """
+        self.assertEqual(
+            Implements(self.ITestInterface1),
+            self.ITestInterface1.assert_implemented)

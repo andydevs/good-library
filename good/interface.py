@@ -104,7 +104,7 @@ class Interface:
         """
         return '<interface {} at {}>'.format(self.__name__, id(self))
 
-def implements(Interface):
+def Implements(Interface):
     """
     Returns the assert_implemented method of the given interface (used for
     decorator syntax)
