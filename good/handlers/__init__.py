@@ -22,14 +22,23 @@ class InstanceHandler:
 
         :return: bound handler
         """
-        def __handle(*args, **kwargs):
-            """
-            Bound handler
-
-            :param *args: positional arguments
-            :param **kwargs: keyword arguments
-            """
-            return self(instance, *args, **kwargs)
+        __handle = lambda *args, **kwargs: self(instance, *args, **kwargs)
+        __handle.__doc__ = self.__generate_doc__(instance, klass)
 
         # Return handler
         return __handle
+
+    def __generate_doc__(self, instance, klass=None):
+        """
+        Returns the documentation of the handler in the bound object
+
+        :param instance: the instance that the handler is bound to
+        :param klass: the class of the instance that the handler is bound to
+
+        :return: the documentation of the handler in the bound object
+        """
+        return 'Bound {handlername} in {klass} object {instance}'.format(
+            handlername=self.__class__.__name__,
+            klass=klass.__name__,
+            instance=str(instance)
+        )

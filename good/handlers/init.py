@@ -70,6 +70,25 @@ class NameInitHandler(InstanceHandler):
             if not hasattr(instance, self._prefix+name):
                 raise Exception('Required name \'{}\' is not given!'.format(name))
 
+    def __generate_doc__(self, instance, klass=None):
+        """
+        Returns the documentation of the NameInitHandler in the bound object
+
+        :param instance: the instance that the NameInitHandler is bound to
+        :param klass: the class of the instance that the NameInitHandler is bound to
+
+        :return: the documentation of the NameInitHandler in the bound object
+        """
+        return """
+        Initializes the {klass} object
+
+        {params}
+        """.format(
+            klass=klass.__name__,
+            params="""
+        """.join(map(':param {}:'.format, self._names))
+        )
+
 class UnderscoreInitHandler(NameInitHandler):
     """
     NamedInit that appends an underscore to each name in the init
