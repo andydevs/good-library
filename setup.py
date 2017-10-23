@@ -10,6 +10,7 @@ from distutils.core import setup
 
 # Setup function
 setup(name='goodlib',
+      version='0.1.0-beta',
       description='A collection of programming and syntax tools for experienced Python users',
       author='Anshul Kharbanda',
       author_email='akanshul97@gmail.com',
