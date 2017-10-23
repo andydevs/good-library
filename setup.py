@@ -9,7 +9,7 @@ Created: 10 - 6 - 2017
 from distutils.core import setup
 
 # Setup function
-setup(name='goodlib',
+setup(name='good-library',
       version='0.1.0-beta',
       description='A collection of programming and syntax tools for experienced Python users',
       author='Anshul Kharbanda',
