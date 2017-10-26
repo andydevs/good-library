@@ -3,19 +3,20 @@
 ## Scheduled
 
 ### 0.2-beta.0
-    - Create Const accessor
-    - Create Enumeration (see [Example 1](#example-1))
+- Create Const accessor
+- Create Enumeration
 
 ### 0.3-beta.0
-    - Create class-skeleton-based annotation (see [Example 2](#example-2))
+- Create class-skeleton-based annotation
+- Create "IExtends" decorator for interfaces
 
 ## Examples
 
-### Example 1
-
-_enumeration type_
+### Enumeration
 
 ```python
+from good.enum import Enum, EnumType
+
 @Enum('MONDAY',
       'TUESDAY',
       'WEDNESDAY',
@@ -23,15 +24,35 @@ _enumeration type_
       'FRIDAY',
       'SATURDAY',
       'SUNDAY')
-class Weekday:
+class Weekday(EnumType):
+    """
+    Weekday enumeration
+    """
     pass
+
+
+@Enum(('RAINY', True),
+      ('SNOWY', True),
+      ('SUNNY', False),
+      ('COLD', True))
+class WeatherType(EnumType):
+    """
+    Weather Type enumeration
+    """
+    def __init__(self, name, coat):
+        """
+        Initializes the WeatherType
+
+        :param name: the name of the WeatherType
+        :param coat: true if WeatherType requires coat
+        """
+        super(EnumType, self).__init__(name)
+        self.coat = coat
 
 dayofweek = Weekday.MONDAY
 ```
 
-### Example 2
-
-_class-skeleton-based annotation_
+### Class-Skeleton-Based Annotation
 
 ```python
 @Annotation
@@ -41,10 +62,42 @@ class ExampleAnnotation:
 
     Can define properties which will be stored in the annotated object
     """
-    __meta_property1 = str
-    __meta_property2 = int
+    __property1 = str
+    __property2 = int
 
 @ExampleAnnotation(property1='Hello World', property2=3)
 class ExampleImplementation:
+    """
+    Implementation of annotation
+    """
     pass
+```
+
+### Extends Decorator
+
+```python
+from good.interface import Interface, IExtends
+
+@Interface
+class Walkable:
+    def walk(self):
+        pass
+
+@IExtends(Walkable)
+@Interface
+class Runnable:
+    def run(self):
+        pass
+
+@Implements(Runnable)
+class SprintRunner:
+    def walk(self):
+        print('Walking...')
+
+    def run(self):
+        print('Running 100m!')
+
+usain_bolt = SprintRunner()
+usain_bolt.walk() # prints 'Walking...'
+usain_bolt.run() # prints 'Running 100m!'
 ```
