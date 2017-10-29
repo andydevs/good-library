@@ -1,6 +1,6 @@
 # The Good Library
 
-"Everyone hates software. It's messy and it gets everywhere." - Sam Gallagher 2017
+"Everyone hates software. It's messy and it gets everywhere." - [Sam Gallagher](https://github.com/sjgallagher2) 2017
 
 The Good Library is a collection of programming and syntax tools that makes your python code more expressive and easier to work with.
 
