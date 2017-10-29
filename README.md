@@ -224,7 +224,7 @@ class MyHandler(InstanceHandler):
         instance.result = scale*(arg1+arg2)
 ```
 
-The class InstanceHandler handles binding the handler to the instance. This requires the extra `instance` parameter, which will become the bound instance of the handler
+The class `InstanceHandler` handles binding the handler to the instance. This requires the extra `instance` parameter, which will become the bound instance of the handler
 
 ```python
 from good.handlers import InstanceHandler
