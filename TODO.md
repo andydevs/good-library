@@ -3,12 +3,16 @@
 ## Scheduled
 
 ### 0.2-beta.0
-- Create Const accessor
-- Create Enumeration
+- Const accessor
+- Enumeration
 
 ### 0.3-beta.0
-- Create class-skeleton-based annotation
-- Create "IExtends" decorator for interfaces
+- Class-skeleton-based annotation
+- "IExtends" decorator for interfaces
+
+## Unscheduled
+- Abstract classes
+      - Figure out how to implement these
 
 ## Examples
 
@@ -73,7 +77,7 @@ class ExampleImplementation:
     pass
 ```
 
-### Extends Decorator
+### IExtends Decorator
 
 ```python
 from good.interface import Interface, IExtends
