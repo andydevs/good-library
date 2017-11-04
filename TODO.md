@@ -9,7 +9,7 @@
 
 ### 0.3-beta.0
 - Interface include `mixin` methods (using `@mixin` annotation)
-- "Extends" decorator for interfaces
+- `@Extends` decorator for interfaces
 
 ## Examples
 
