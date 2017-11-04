@@ -113,13 +113,13 @@ from good.mixin import Mixin, Includes
 
 @Mixin
 class SaysHello:
-	def say_hello(self):
-		print('Hello!')
+    def say_hello(self):
+        print('Hello!')
 	
 @Includes(SaysHello)
 class Person:
-	def __init__(self, name):
-		self._name = name
+    def __init__(self, name):
+        self._name = name
 		
 steve = Person('steve')
 steve.say_hello() # Says hello
