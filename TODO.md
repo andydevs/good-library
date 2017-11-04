@@ -5,14 +5,11 @@
 ### 0.2-beta.0
 - Const accessor
 - Enumeration
+- Class-skeleton-based annotation
 
 ### 0.3-beta.0
-- Class-skeleton-based annotation
-- "IExtends" decorator for interfaces
-
-## Unscheduled
-- `Mixin` and `Includes`
-	- IDEA: Interface as a subclass of Mixin
+- Interface include `mixin` methods (using `@mixin` annotation)
+- "Extends" decorator for interfaces
 
 ## Examples
 
@@ -92,18 +89,22 @@ class ExampleImplementation:
 ### IExtends Decorator
 
 ```python
-from good.interface import Interface, IExtends, Implements
+from good.interface import Interface, Extends, Implements
 
 @Interface
 class Walkable:
     def walk(self):
         pass
 
-@IExtends(Walkable)
+@Extends(Walkable)
 @Interface
 class Runnable:
     def run(self):
         pass
+	
+    @mixin
+    def can_you_run(self):
+        print('Yes...')
 
 @Implements(Runnable)
 class SprintRunner:
@@ -115,24 +116,6 @@ class SprintRunner:
 
 usain_bolt = SprintRunner()
 usain_bolt.walk() # prints 'Walking...'
+usain_bolt.can_you_run() # prints 'Yes...'
 usain_bolt.run() # prints 'Running 100m!'
-```
-
-### `Mixin` and `Includes` Decorator
-
-```python
-from good.mixin import Mixin, Includes
-
-@Mixin
-class SaysHello:
-    def say_hello(self):
-        print('Hello!')
-	
-@Includes(SaysHello)
-class Person:
-    def __init__(self, name):
-        self._name = name
-		
-steve = Person('steve')
-steve.say_hello() # Says hello
 ```
