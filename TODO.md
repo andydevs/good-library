@@ -43,7 +43,9 @@ Weekday = Enum('MONDAY',
 	       'FRIDAY', 
 	       'SATURDAY', 
 	       'SUNDAY')
-Weekday.__doc__ = 'Weekday enumeration'
+Weekday.__doc__ = """
+Weekday enumeration
+"""
 
 @Enum(('RAINY', True),
       ('SNOWY', True),
