@@ -13,7 +13,7 @@
 ## Unscheduled
 - Abstract classes
 	- Figure out how to implement these
-- Mixins and `Includes` call
+- `Mixin` and `Includes`
 
 ## Examples
 
@@ -81,7 +81,7 @@ class ExampleImplementation:
 ### IExtends Decorator
 
 ```python
-from good.interface import Interface, IExtends
+from good.interface import Interface, IExtends, Implements
 
 @Interface
 class Walkable:
@@ -105,4 +105,23 @@ class SprintRunner:
 usain_bolt = SprintRunner()
 usain_bolt.walk() # prints 'Walking...'
 usain_bolt.run() # prints 'Running 100m!'
+```
+
+### `Mixin` and `Includes` Decorator
+
+```python
+from good.mixin import Mixin, Includes
+
+@Mixin
+class SaysHello:
+	def say_hello(self):
+		print('Hello!')
+	
+@Includes(SaysHello)
+class Person:
+	def __init__(self, name):
+		self._name = name
+		
+steve = Person('steve')
+steve.say_hello() # Says hello
 ```
