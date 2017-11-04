@@ -34,6 +34,16 @@ class Weekday(EnumType):
     """
     pass
 
+# OR
+
+Weekday = Enum('MONDAY', 
+               'TUESDAY', 
+	       'WEDNESDAY', 
+	       'THURSDAY', 
+	       'FRIDAY', 
+	       'SATURDAY', 
+	       'SUNDAY')
+Weekday.__doc__ = 'Weekday enumeration'
 
 @Enum(('RAINY', True),
       ('SNOWY', True),
