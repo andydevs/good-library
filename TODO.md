@@ -11,9 +11,8 @@
 - "IExtends" decorator for interfaces
 
 ## Unscheduled
-- Abstract classes
-	- Figure out how to implement these
 - `Mixin` and `Includes`
+	- IDEA: Interface as a subclass of Mixin
 
 ## Examples
 
