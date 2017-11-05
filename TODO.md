@@ -13,6 +13,9 @@
 - Interface include `mixin` methods (using `@mixin` annotation)
 - `@Extends` decorator for interfaces
 
+## Ideas
+- Procedure acceptance wrapper
+
 ## Examples
 
 ### Enumeration
@@ -52,23 +55,42 @@ class WeatherType(EnumType):
         self.coat = coat
 
 dayofweek = Weekday.MONDAY
+weather = WeatherType.RAINY
+
+print ('Today is', dayofweek.name.lower(), 'and it is', weather.name.lower())
+if weather.coat:
+    print ('You\'ll need a coat today')
 ```
 
 ### Class-Skeleton-Based Annotation
 
 ```python
 @Annotation
-class ExampleAnnotation:
+class ExampleAnnotation1:
     """
     Example of an annotation class
-
-    Can define properties which will be stored in the annotated object
     """
-    __property1 = str
-    __property2 = int
+    pass
 
-@ExampleAnnotation(property1='Hello World', property2=3)
-class ExampleImplementation:
+@Annotation
+class ExampleAnnotation2:
+    """
+    Example of an annotation class with attributes
+
+    Can define attribute which will be stored in the annotated object
+    """
+    __attr_string_attr = str
+    __attr_number_attr = int
+
+@ExampleAnnotation1
+class ExampleImplementation1:
+    """
+    Implementation of annotation
+    """
+    pass
+
+@ExampleAnnotation2(string_attr='Hello World', number_attr=3)
+class ExampleImplementation2:
     """
     Implementation of annotation
     """
