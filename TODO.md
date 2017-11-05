@@ -3,11 +3,13 @@
 ## Scheduled
 
 ### 0.2-beta.0
-- Const accessor
-- Enumeration
 - Class-skeleton-based annotation
 
 ### 0.3-beta.0
+- Const accessor
+- Enumeration
+
+### 0.4-beta.0
 - Interface include `mixin` methods (using `@mixin` annotation)
 - `@Extends` decorator for interfaces
 
@@ -30,19 +32,6 @@ class Weekday(EnumType):
     Weekday enumeration
     """
     pass
-
-# OR
-
-Weekday = Enum('MONDAY', 
-               'TUESDAY', 
-	       'WEDNESDAY', 
-	       'THURSDAY', 
-	       'FRIDAY', 
-	       'SATURDAY', 
-	       'SUNDAY')
-Weekday.__doc__ = """
-Weekday enumeration
-"""
 
 @Enum(('RAINY', True),
       ('SNOWY', True),
@@ -101,7 +90,7 @@ class Walkable:
 class Runnable:
     def run(self):
         pass
-	
+
     @mixin
     def can_you_run(self):
         print('Yes...')
