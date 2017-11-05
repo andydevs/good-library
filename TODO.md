@@ -97,7 +97,7 @@ class ExampleImplementation2:
     pass
 ```
 
-### IExtends Decorator
+### Extends Decorator
 
 ```python
 from good.interface import Interface, Extends, Implements
@@ -129,4 +129,28 @@ usain_bolt = SprintRunner()
 usain_bolt.walk() # prints 'Walking...'
 usain_bolt.can_you_run() # prints 'Yes...'
 usain_bolt.run() # prints 'Running 100m!'
+```
+
+### Procedure Acceptance Wrapper
+
+```python
+from good.procedure import procedure
+
+@procedure('block_')
+def each(iterable, block_):
+    for value in iter(iterable):
+        block_(value)
+
+iterable = range(10)
+
+@each(iterable)
+def do(number):
+    if number % 5 == 0 and number % 3 == 0:
+        print('FizzBuzz')
+    elif number % 5 == 0:
+        print('Fizz')
+    elif number % 3 == 0:
+        print('Buzz')
+    else:
+        print(number)
 ```
