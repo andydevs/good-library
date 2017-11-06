@@ -14,7 +14,7 @@
 - `@Extends` decorator for interfaces
 
 ## Ideas
-- Procedure acceptance wrapper
+- Procedure/Routine acceptance wrapper
 
 ## Examples
 
@@ -79,8 +79,8 @@ class ExampleAnnotation2:
 
     Can define attribute which will be stored in the annotated object
     """
-    __attr_string_attr = str
-    __attr_number_attr = int
+    _attr_string_attr = str
+    _attr_number_attr = int
 
 @ExampleAnnotation1
 class ExampleImplementation1:
@@ -136,10 +136,10 @@ usain_bolt.run() # prints 'Running 100m!'
 ```python
 from good.procedure import procedure
 
-@procedure('block_')
-def each(iterable, block_):
+@procedure('_block')
+def each(iterable, _block):
     for value in iter(iterable):
-        block_(value)
+        _block(value)
 
 iterable = range(10)
 

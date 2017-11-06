@@ -7,7 +7,7 @@ Author:  Anshul Kharbanda
 Created: 10 - 6 - 2017
 """
 import good
-from good.annotation import Annotation
+from good.old_annotation import Annotation
 import unittest
 
 class AnnotationTest(unittest.TestCase):
