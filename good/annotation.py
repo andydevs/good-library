@@ -7,17 +7,36 @@ python code more expressive and easier to work with.
 Author:  Anshul Kharbanda
 Created: 10 - 6 - 2017
 """
-class BaseAnnotation:
+class AnnotationType:
     """
     Base class for annotations
 
     Author:  Anshul Kharbanda
     Created: 11 - 6 - 2017
     """
-    _AT_prefix = '_AT_'
+    _AT_prefix = '_AT_' # Prefix for annotation type
+    _attr_prefix = '_attr_' # Prefix for attribute
+    _attributes = {} # Attribute names array
 
-    # Attribute names array
-    _attributes = {}
+    @classmethod
+    def __AT_get_full_name(cls):
+        """
+        Return the full name of the annotation
+
+        :return: the full name of the annotation
+        """
+        return cls._AT_prefix + cls.__name__
+
+    @classmethod
+    def get(cls, obj):
+        """
+        Returns the annotation in the given object (or False)
+
+        :param obj: the object to check
+
+        :return: the annotation in the given object (or False)
+        """
+        return getattr(obj, cls._AT_get_full_name(), False)
 
     def __init__(self, **kwargs):
         """
@@ -57,7 +76,7 @@ class BaseAnnotation:
 
         :return: the annotated object
         """
-        setattr(obj, type(self)._AT_full_name, self)
+        setattr(obj, type(self).__AT_get_full_name(), self)
         return obj
 
     def __bool__(self):
@@ -74,95 +93,41 @@ class BaseAnnotation:
             name=type(self).__name__,
             attrs=self._attr_string)
 
-class AnnotationType(type):
+def get_all(obj):
     """
-    Metaclass for annotations
+    Gets all annotations attached to the given object
 
-    Author:  Anshul Kharbanda
-    Created: 11 - 6 - 2017
+    :param obj: the object to retrieve annotations from
+
+    :return: all annotations from the given object
     """
-    # Prefix for annotation type
-    _AT_prefix = '_AT_'
+    return tuple(member
+            for member in obj.__dict__.values()
+            if isinstance(member, AnnotationType))
 
-    # Prefix for attribute
-    _attr_prefix = '_attr_'
+def create(name, attributes=dict()):
+    """
+    Creates an Annotation or AnnotationType from the given info
 
-    @classmethod
-    def from_class_skeleton(mcls, cskl):
-        """
-        Creates an Annotation or AnnotationType from the given cskl
+    :param name: the name of the annotation
+    :param attributes: the attributes of the annotation
+    """
+    AtType = type(name, (AnnotationType,), dict(_attributes=attributes))
+    return AtType if len(attributes) > 0 else AtType()
 
-        :param cskl: the class skeleton to create an annotation from
+def Annotation(cskl):
+    """
+    Decorator function for a Class Skeleton
 
-        :return: Annotation or AnnotationType from the given cskl
-        """
-        name = cskl.__name__
-        attributes = {name[len(self._attr_prefix):]:typ # Trim prefix
-                        for name,typ in cskl.__dict__.items() # Get keys
-                        if name.startswith(self._attr_prefix)} # Filter by prefix
+    :param cskl: the class skeleton to create an annotation from
 
-        # Create constructor
-        AT_Type = AnnotationType.create(name, attributes)
+    :return: Annotation or AnnotationType from the given cskl
+    """
+    # Extract relevant info
+    name = cskl.__name__
+    attributes = {name[len(self._attr_prefix):]:typ # Trim prefix
+                    for name,typ in cskl.__dict__.items() # Get keys
+                    if name.startswith(self._attr_prefix)} # Filter by prefix
 
-        # Return constructor if attributes is not empty else annotation
-        return AT_Type if len(attributes) > 0 else AT_Type()
-
-    @classmethod
-    def create(mcls, name, attrs=tuple()):
-        """
-        Creates a new AnnotationType and returns it
-
-        :param name: the name of the annotation
-        :param attrs: the attributes of the annotation
-        """
-        # Create bases and namespace dict
-        bases = (BaseAnnotation,)
-        nspc = dict(_attributes=attrs)
-
-        # Return new type
-        return mcls.__new__(mcls, name, bases, nspc)
-
-    @classmethod
-    def _AT_filter(mcls, value):
-        """
-        Filters annotation entries
-
-        :param value: the value to filter
-
-        :return: true if the value is an annotation
-        """
-        return type(type(value)) is AnnotationType
-
-    @classmethod
-    def get_all(mcls, obj):
-        """
-        Gets all annotations attached to the given object
-
-        :param obj: the object to retrieve annotations from
-
-        :return: all annotations from the given object
-        """
-        return tuple(filter(mcls._AT_filter, obj.__dict__.values()))
-
-    @property
-    def _AT_full_name(cls):
-        """
-        Return the full name of the annotation
-
-        :return: the full name of the annotation
-        """
-        return cls._AT_prefix + cls.__name__
-
-    def get(cls, obj):
-        """
-        Returns the annotation in the given object (or False)
-
-        :param obj: the object to check
-
-        :return: the annotation in the given object (or False)
-        """
-        return getattr(obj, cls._AT_full_name, False)
-
-# Alias for class skeleton constructor
-# (the pretty annotation decorator that you use)
-Annotation = AnnotationType.from_class_skeleton
+    # Create AnnotationType
+    return create(name, attributes)
