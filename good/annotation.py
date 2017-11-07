@@ -93,6 +93,60 @@ class AnnotationType:
             name=type(self).__name__,
             attrs=self._attr_string)
 
+class AnnotationSet:
+    """
+    A set of Annotations from a given object (includes the object)
+
+    Author:  Anshul Kharbanda
+    Created: 11 - 6 - 2017
+    """
+    def __init__(self, obj, ats):
+        """
+        Initializes the AnnotationSet with the given object and annotations
+
+        :param obj: the object to which the annotations are bound to
+        :param ats: the annotations in the list
+        """
+        self._obj = obj
+        self._ats = ats
+
+    @property
+    def obj(self):
+        """
+        The original objects to which the annotations are bound to
+        """
+        return self._obj
+
+    def __iter__(self):
+        """
+        Returns the iterator
+        """
+        return iter(self._ats)
+
+    def __len__(self):
+        """
+        The length of the ats list
+        """
+        return len(self._ats)
+
+    def __getitem__(self, index):
+        """
+        Returns the item at the given index
+        """
+        return self._ats[index]
+
+    def __str__(self):
+        """
+        String representation of instance
+        """
+        return str(self._ats)
+
+    def __repr__(self):
+        """
+        Detailed string representation of instance
+        """
+        return 'AnnotationSet({obj}, {ats})'.join(obj=str(self._obj), ats=str(self._ats))
+
 def get_all(obj):
     """
     Gets all annotations attached to the given object
@@ -101,9 +155,9 @@ def get_all(obj):
 
     :return: all annotations from the given object
     """
-    return tuple(member
-            for member in obj.__dict__.values()
-            if isinstance(member, AnnotationType))
+    return AnnotationSet(obj,
+            { member for member in obj.__dict__.values()
+                if isinstance(member, AnnotationType) })
 
 def create(name, attributes=dict()):
     """
