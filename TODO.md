@@ -2,7 +2,7 @@
 
 ## Scheduled
 
-### 0.2-beta.0
+### 0.2-beta.0 (Completed!)
 - Class-skeleton-based annotation
 
 ### 0.3-beta.0
@@ -15,6 +15,7 @@
 
 ## Ideas
 - Procedure/Routine acceptance wrapper
+- Move everything OOP related to OOP package
 
 ## Examples
 
