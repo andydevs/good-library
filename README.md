@@ -97,7 +97,15 @@ from good.inits import UnderscoreInit
 from random import randint
 
 # Annotations
-random_outcome = Annotation('random_outcome')
+@Annotation
+class RandomOutcome:
+    """
+    Handles random outcomes
+
+    Author:  Steven Schmutz
+    Created: 5 - 23 - 2028
+    """
+    pass
 
 @Interface
 class Thinker:
@@ -138,7 +146,7 @@ class Person:
         }
     )
 
-    @random_outcome
+    @RandomOutcome
     def ask_for_thoughts(self):
         """
         Returns the person's thoughts on chance
@@ -276,12 +284,14 @@ class Person:
 
 ### Annotations
 
-Annotations serve as markers for functions and classes containing information that is accessible by both humans and computers. Annotations are defined using the Annotation class.
+Annotations serve as markers for functions and classes containing information that is accessible by both humans and computers. Annotations are defined using the Annotation decorator and a class skeleton.
 
 ```python
 from good.annotation import Annotation
 
-annotation = Annotation('annotation')
+@Annotation
+class MyAnnotation:
+    pass
 ```
 
 Classes and functions can then be 'annotated' using the created annotation via decorator syntax.
@@ -289,23 +299,46 @@ Classes and functions can then be 'annotated' using the created annotation via d
 ```python
 from good.annotation import Annotation
 
-annotation = Annotation('annotation')
+@Annotation
+class MyAnnotation:
+    pass
 
-@annotation
+@MyAnnotation
 def my_function(arg1, arg2):
     return arg1+arg2
 ```
 
-Annotation objects also contain the `match` method, which is used to match objects that have the annotation object
+Annotation types also contain the `get` method, which is used to retrieve annotations of the type from objects
 
 ```python
 from good.annotation import Annotation
 
-annotation = Annotation('annotation')
+@Annotation
+class MyAnnotation:
+    pass
 
-@annotation
+@MyAnnotation
 def my_function(arg1, arg2):
     return arg1+arg2
 
-annotation.match(my_function)
+MyAnnotation.get(my_function) # Returns @MyAnnotation
+```
+
+Annotations can also contain attributes, which can be provided when annotating an object
+
+```python
+from good.annotation import Annotation
+
+@Annotation
+class MyAnnotation:
+    _attr_name = str # Prefix your attribute with _attr_ and then set it to the type of data stored
+    _attr_number = int
+
+# This will create an annotation type which takes named parameters
+
+@MyAnnotation(name='Joe Schmoe', number=2)
+def my_function(arg1, arg2):
+    return arg1+arg2
+
+MyAnnotation.get(my_function) # Returns @MyAnnotation(name='Joe Schmoe', number=2)
 ```
