@@ -63,41 +63,6 @@ if weather.coat:
     print ('You\'ll need a coat today')
 ```
 
-### Class-Skeleton-Based Annotation
-
-```python
-@Annotation
-class ExampleAnnotation1:
-    """
-    Example of an annotation class
-    """
-    pass
-
-@Annotation
-class ExampleAnnotation2:
-    """
-    Example of an annotation class with attributes
-
-    Can define attribute which will be stored in the annotated object
-    """
-    _attr_string_attr = str
-    _attr_number_attr = int
-
-@ExampleAnnotation1
-class ExampleImplementation1:
-    """
-    Implementation of annotation
-    """
-    pass
-
-@ExampleAnnotation2(string_attr='Hello World', number_attr=3)
-class ExampleImplementation2:
-    """
-    Implementation of annotation
-    """
-    pass
-```
-
 ### Extends Decorator
 
 ```python
