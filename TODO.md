@@ -14,7 +14,7 @@
 - `@Extends` decorator for interfaces
 
 ## Ideas
-- Procedure/Routine acceptance wrapper
+- Procedure acceptor wrapper
 - Move everything OOP related to OOP package
 
 ## Examples
@@ -97,20 +97,20 @@ usain_bolt.can_you_run() # prints 'Yes...'
 usain_bolt.run() # prints 'Running 100m!'
 ```
 
-### Procedure Acceptance Wrapper
+### Procedure Acceptor Wrapper
 
 ```python
-from good.procedure import procedure
+from good.procedure import procedure_acceptor
 
-@procedure('_block')
-def each(iterable, _block):
-    for value in iter(iterable):
-        _block(value)
+@procedure_acceptor
+def times(n, _proc):
+    _ = None
+    for i in range(n):
+        _ = _proc(i)
+    return _
 
-iterable = range(10)
-
-@each(iterable)
-def do(number):
+@times(100)
+def _(number):
     if number % 5 == 0 and number % 3 == 0:
         print('FizzBuzz')
     elif number % 5 == 0:
