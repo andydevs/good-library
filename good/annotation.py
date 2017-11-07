@@ -15,11 +15,10 @@ class AnnotationType:
     Created: 11 - 6 - 2017
     """
     _AT_prefix = '_AT_' # Prefix for annotation type
-    _attr_prefix = '_attr_' # Prefix for attribute
     _attributes = {} # Attribute names array
 
     @classmethod
-    def __AT_get_full_name(cls):
+    def _AT_get_full_name(cls):
         """
         Return the full name of the annotation
 
@@ -76,7 +75,7 @@ class AnnotationType:
 
         :return: the annotated object
         """
-        setattr(obj, type(self).__AT_get_full_name(), self)
+        setattr(obj, type(self)._AT_get_full_name(), self)
         return obj
 
     def __bool__(self):
@@ -135,6 +134,14 @@ class AnnotationSet:
         """
         return self._ats[index]
 
+    def __eq__(self, other):
+        """
+        Tests equality between AnnotationSet objects
+
+        :param other: the other AnnotationSet
+        """
+        return self._obj == other._obj and self._ats == other._ats
+
     def __str__(self):
         """
         String representation of instance
@@ -177,11 +184,14 @@ def Annotation(cskl):
 
     :return: Annotation or AnnotationType from the given cskl
     """
+    # Prefix for attribute
+    attr_prefix = '_attr_'
+
     # Extract relevant info
     name = cskl.__name__
-    attributes = {name[len(self._attr_prefix):]:typ # Trim prefix
+    attributes = {name[len(attr_prefix):]:typ # Trim prefix
                     for name,typ in cskl.__dict__.items() # Get keys
-                    if name.startswith(self._attr_prefix)} # Filter by prefix
+                    if name.startswith(attr_prefix)} # Filter by prefix
 
     # Create AnnotationType
     return create(name, attributes)
