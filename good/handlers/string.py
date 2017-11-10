@@ -35,7 +35,7 @@ class ValueStringHandler(InstanceHandler):
             name=type(inst).__name__,
             vals=', '.join(self._vstr(inst, key) for key in self._keys))
 
-    def _vstr(self, obj):
+    def _vstr(self, obj, key):
         """
         Returns the value string for the given key
 
@@ -53,7 +53,7 @@ class KeyValueStringHandler(ValueStringHandler):
     Author:  Anshul Kharbanda
     Created: 11 - 9 - 2017
     """
-    def _vstr(self, obj):
+    def _vstr(self, obj, key):
         """
         Returns the value string for the given key
 
@@ -62,4 +62,4 @@ class KeyValueStringHandler(ValueStringHandler):
 
         :return: the value string for the given key
         """
-        return '{key}={val}'.format(key, repr(getattr(obj, key)))
+        return '{key}={val}'.format(key=key, val=repr(getattr(obj, key)))
