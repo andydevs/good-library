@@ -33,6 +33,22 @@ class Person:
         self._apparel = apparel
         self._thoughts = thoughts
 
+    def __repr__(self):
+        """
+        Detailed string representation of instance
+        """
+        return 'Person(name={name}, age={age}, apparel={apparel})'.format(
+            name=self.name,
+            age=self.age,
+            apparel=self.apparel)
+
+    @property
+    def species(self):
+        """
+        Constant 'species' property
+        """
+        return 'human'
+
     @property
     def name(self):
         """
@@ -91,9 +107,10 @@ class Person:
 _The Good Way_
 ```python
 from good.interface import Interface, Implements
-from good.access import Get, Set, GetSet
+from good.access import Get, Set, GetSet, Const
 from good.annotation import Annotation
-from good.inits import UnderscoreInit
+from good.handlers.init import UnderscoreInitHandler
+from good.handlers.string import KeyValueStringHandler
 from random import randint
 
 # Annotations
@@ -132,6 +149,7 @@ class Person:
     Created: 5 - 23 - 2028
     """
     # Properties
+    species = Const('human')
     name = Get('_name')
     age = Get('_age')
     thoughts = Set('_thoughts')
@@ -145,6 +163,9 @@ class Person:
             'thoughts': 'Crazy we\'re still using python in 2028'
         }
     )
+
+    # Repr method
+    __repr__ = KeyValueStringHandler(('name', 'age', 'apparel'))
 
     @RandomOutcome
     def ask_for_thoughts(self):
@@ -217,6 +238,21 @@ class Person:
 
 `Get` only allows get access to a member, it does not allow setting the value. `Set` only allows setting, but not getting a member. `GetSet` does both, and is mainly an indicator of access.
 
+`Const` is a special accessor that can store a constant value (which cannot be updated at runtime)
+
+```python
+class Person:
+    """
+    Docstring for Person
+    """
+    sepecies = Const('human')
+
+joe = Person()
+
+print(person.species) # Prints 'human'
+person.species = 'glhagnog' # Raises Exception
+```
+
 ### Handlers
 
 Handlers are objects that act as methods in a class. They are good for configurable, predefined functions which will otherwise be redundant to implement. Handler functionality is implemented in standard python's `__call__` method, which otherwise treats the handler like a function.
@@ -232,7 +268,7 @@ class MyHandler(InstanceHandler):
         instance.result = scale*(arg1+arg2)
 ```
 
-The class `InstanceHandler` handles binding the handler to the instance. This requires the extra `instance` parameter, which will become the bound instance of the handler
+The class `InstanceHandler` binds to an instance. This requires the extra `instance` parameter, which will become the bound instance of the handler
 
 ```python
 from good.handlers import InstanceHandler
@@ -250,6 +286,28 @@ class MyClass:
         self.last_result = None
 
     handler = MyHandler(3)
+```
+
+The class `ClassHandler` binds to a class and passes the bound class to the extra `klass` parameter.
+
+```python
+from good.handlers import ClassHandler
+
+class DefaultAgePersonMaker(ClassHandler):
+    def __init__(self, defage):
+        self._defage = defage
+
+    def __call__(self, klass, name):
+        return klass(name=name, age=self._defage)
+
+class Person:
+    make_twenty_year_old = DefaultAgePersonMaker(20)
+
+    def __init__(self, name, age):
+        self._name = name
+        self._age = age
+
+jim = Person.make_twenty_year_old('Jim Shim') # Makes Person('Jim Shim', 20)
 ```
 
 #### Init Handlers
@@ -281,6 +339,46 @@ class Person:
 ```
 
 `UnderscoreInitHandler` is a type of `NamedInitHandler` that appends an underscore `_` to each name before setting it in the instance. `DunderInitHandler` adds a dunder, or a double-underscore `__` before each name
+
+#### String Handlers
+
+Another case of redundant programming is string representations. The Good Library provides `ValueStringHandler`, which prints the object name and the values of the given keys to show, and `KeyValueStringHandler`, which is like `ValueStringHandler`, but displays key=value pairs instead of just values
+
+```python
+from good.handlers.string import ValueStringHandler, KeyValueStringHandler
+
+class Person1:
+    """
+    Docstring for Person
+    """
+    def __init__(self, name, age):
+        """
+        Initializes instance
+        """
+        self.name = name
+        self.age = age
+
+    __repr__ = ValueStringHandler(('name', 'age'))
+
+class Person2:
+    """
+    Docstring for Person2
+    """
+    def __init__(self, name, age):
+        """
+        Initializes instance
+        """
+        self.name = name
+        self.age = age
+
+    __repr__ = KeyValueStringHandler(('name', 'age'))
+
+john1 = Person1('John Numberone', 21)
+john2 = Person2('John Numbertwo', 28)
+
+print(john1) # prints 'Person1(\'John Numberone\', 21)'
+print(john2) # prints 'Person2(name=\'John Numbertwo\', age=28)'
+```
 
 ### Annotations
 
