@@ -7,61 +7,18 @@
 
 ### 0.3-beta.0
 - Const accessor
-- Enumeration
+- StringRepr handlers
 
 ### 0.4-beta.0
 - Interface include `mixin` methods (using `@mixin` annotation)
 - `@Extends` decorator for interfaces
 
 ## Ideas
+- StringRepresent handlers
 - Procedure acceptor wrapper
 - Move everything OOP related to OOP package
 
 ## Examples
-
-### Enumeration
-
-```python
-from good.enum import Enum, EnumType
-
-@Enum('MONDAY',
-      'TUESDAY',
-      'WEDNESDAY',
-      'THURSDAY',
-      'FRIDAY',
-      'SATURDAY',
-      'SUNDAY')
-class Weekday(EnumType):
-    """
-    Weekday enumeration
-    """
-    pass
-
-@Enum(('RAINY', True),
-      ('SNOWY', True),
-      ('SUNNY', False),
-      ('COLD', True))
-class WeatherType(EnumType):
-    """
-    Weather Type enumeration
-    """
-    def __init__(self, name, coat):
-        """
-        Initializes the WeatherType
-
-        :param name: the name of the WeatherType
-        :param coat: true if WeatherType requires coat
-        """
-        super(EnumType, self).__init__(name)
-        self.coat = coat
-
-dayofweek = Weekday.MONDAY
-weather = WeatherType.RAINY
-
-print ('Today is', dayofweek.name.lower(), 'and it is', weather.name.lower())
-if weather.coat:
-    print ('You\'ll need a coat today')
-```
 
 ### Extends Decorator
 
