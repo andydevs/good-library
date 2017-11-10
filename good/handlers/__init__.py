@@ -39,7 +39,7 @@ class InstanceHandler:
         :return: the documentation of the handler in the bound object
         """
         return 'Bound {handlername} in {klass} object {instance}'.format(
-            handlername=self.__class__.__name__,
+            handlername=type(self).__name__,
             klass=klass.__name__,
             instance=str(instance)
         )
