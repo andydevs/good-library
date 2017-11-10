@@ -7,14 +7,13 @@
 
 ### 0.3-beta.0
 - Const accessor
-- StringRepr handlers
+- ToString handlers
 
 ### 0.4-beta.0
 - Interface include `mixin` methods (using `@mixin` annotation)
 - `@Extends` decorator for interfaces
 
 ## Ideas
-- StringRepresent handlers
 - Procedure acceptor wrapper
 - Move everything OOP related to OOP package
 
