@@ -26,8 +26,7 @@ class InstanceHandler:
         :return: bound handler
         """
         if instance is not None:
-            def __bound_handler(*args, **kwargs):
-                return self(instance, *args, **kwargs)
+            __bound_handler = lambda *a, **kw: self(instance, *a, **kw)
             update_wrapper(__bound_handler, self)
         else:
             __bound_handler = self
