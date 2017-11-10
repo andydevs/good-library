@@ -5,10 +5,10 @@
 ### 0.2-beta.0 (Completed!)
 - Class-skeleton-based annotation
 
-### 0.3-beta.0
+### 0.3-beta.0 (Completed!)
 - Const accessor
 - Class handlers
-- ToString handlers
+- String handlers
 
 ### 0.4-beta.0
 - Interface include methods (using `@include` annotation)

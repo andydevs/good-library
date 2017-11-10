@@ -11,7 +11,7 @@ from distutils.core import setup
 
 # Setup function
 setup(name='good-library',
-      version='0.2-beta.0',
+      version='0.3-beta.0',
       description='A collection of programming and syntax tools for experienced Python users',
       author='Anshul Kharbanda',
       author_email='akanshul97@gmail.com',
