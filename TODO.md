@@ -58,21 +58,28 @@ usain_bolt.run() # prints 'Running 100m!'
 ### Class Skeleton Constructor Class Handler
 
 ```python
+from good.handlers.init import NamedInitHandler
+from good.handlers.string import ValueStringHandler
 from good.handlers.constructor import ClassSkeletonConstructor
 
 class Person:
     construct = ClassSkeletonConstructor({'name': 'name', 'age': 'age'})
-
-    def __init__(self, name, age):
-        """
-        Initializes instance
-        """
-        self._name = name
-        self._age = age
-
+    __init__ = NamedInitHandler(('name', 'age'))
     __repr__ = ValueStringHandler(('name', 'age'))
 
 @Person.construct
+class jim:
+    name = 'Jim Slim'
+    age = 23
+
+# OR
+
+class Person:
+    __init__ = NamedInitHandler(('name', 'age'))
+    __repr__ = ValueStringHandler(('name', 'age'))
+person = ClassSkeletonConstructor({'name':'name', 'age':'age'}).bind(Person)
+
+@person
 class jim:
     name = 'Jim Slim'
     age = 23
