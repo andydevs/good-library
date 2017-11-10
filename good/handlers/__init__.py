@@ -7,7 +7,7 @@ python code more expressive and easier to work with.
 Author:  Anshul Kharbanda
 Created: 10 - 6 - 2017
 """
-from functools import update_wrapper
+from functools import wraps
 
 class Handler:
     """
@@ -25,12 +25,12 @@ class Handler:
         :return: handler bound to the given object
         """
         # Create bound handler
+        @wraps(self)
         def __bound_handler(*args, **kwargs):
             """
             Bound handler to an object
             """
             return self(obj, *args, **kwargs)
-        update_wrapper(__bound_handler, self)
 
         # Return handler
         return __bound_handler
