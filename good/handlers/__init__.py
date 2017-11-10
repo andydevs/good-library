@@ -25,24 +25,12 @@ class InstanceHandler:
 
         :return: bound handler
         """
-        __bound_handler = lambda *args, **kwargs: self(instance, *args, **kwargs)
-        update_wrapper(__bound_handler, self.__call__)
-        __bound_handler.__doc__ = self.__generate_doc__(instance, klass)
+        if instance is not None:
+            def __bound_handler(instance, *args, **kwargs):
+                return self(instance, *args, **kwargs)
+            update_wrapper(__bound_handler, self)
+        else:
+            __bound_handler = self
 
         # Return handler
         return __bound_handler
-
-    def __generate_doc__(self, instance, klass=None):
-        """
-        Returns the documentation of the handler in the bound object
-
-        :param instance: the instance that the handler is bound to
-        :param klass: the class of the instance that the handler is bound to
-
-        :return: the documentation of the handler in the bound object
-        """
-        return 'Bound {handlername} in {klass} object {instance}'.format(
-            handlername=type(self).__name__,
-            klass=klass.__name__,
-            instance=str(instance)
-        )

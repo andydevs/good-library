@@ -44,18 +44,6 @@ class NameInitHandlerTest(unittest.TestCase):
     Author:  Anshul Kharbanda
     Created: 10 - 17 - 2017
     """
-    init_doc = """
-        Initializes the Person1 object
-
-        :param name: the name member of the object
-        :param age: the age member of the object
-        """
-    def test_doc(self):
-        """
-        Tests documentation generator
-        """
-        self.assertEqual(Person1.__init__.__doc__, self.init_doc)
-
     def test_all_names(self):
         """
         Tests all names given
