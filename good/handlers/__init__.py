@@ -9,7 +9,30 @@ Created: 10 - 6 - 2017
 """
 from functools import update_wrapper
 
-class InstanceHandler:
+class Handler:
+    """
+    Base class for Handler objects
+
+    Author:  Anshul Kharbanda
+    Created: 11 - 9 - 2017
+    """
+    def bind(self, obj):
+        """
+        Returns the handler bound to the given object
+
+        :param obj: the object to bind to
+
+        :return: handler bound to the given object
+        """
+        # Create bound handler
+        def __bound_handler(*args, **kwargs):
+            return self(obj, *args, **kwargs)
+        update_wrapper(__bound_handler, self)
+
+        # Return handler
+        return __bound_handler
+
+class InstanceHandler(Handler):
     """
     Base class for instance handler classes
 
@@ -25,11 +48,5 @@ class InstanceHandler:
 
         :return: bound handler
         """
-        if instance is not None:
-            __bound_handler = lambda *a, **kw: self(instance, *a, **kw)
-            update_wrapper(__bound_handler, self)
-        else:
-            __bound_handler = self
-
-        # Return handler
-        return __bound_handler
+        # Return bound handler if instance is defined else return handler
+        return self if instance is None else self.bind(instance)
