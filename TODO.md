@@ -15,6 +15,7 @@
 - `@Extends` decorator for interfaces
 
 ## Ideas
+- Class Skeleton Constructor Class Handler
 - Procedure acceptor wrapper
 - Move everything OOP related to OOP package
 
@@ -52,6 +53,31 @@ usain_bolt = SprintRunner()
 usain_bolt.walk() # prints 'Walking...'
 usain_bolt.can_you_run() # prints 'Yes...'
 usain_bolt.run() # prints 'Running 100m!'
+```
+
+### Class Skeleton Constructor Class Handler
+
+```python
+from good.handlers.constructor import ClassSkeletonConstructor
+
+class Person:
+    construct = ClassSkeletonConstructor({'name': 'name', 'age': 'age'})
+
+    def __init__(self, name, age):
+        """
+        Initializes instance
+        """
+        self._name = name
+        self._age = age
+
+    __repr__ = ValueStringHandler(('name', 'age'))
+
+@Person.construct
+class jim:
+    name = 'Jim Slim'
+    age = 23
+
+print(jim) # prints 'Person(\'Jim Slim\', 23)'
 ```
 
 ### Procedure Acceptor Wrapper
