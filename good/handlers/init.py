@@ -55,16 +55,17 @@ class NameInitHandler(InstanceHandler):
         """
         # Set positional arguments
         for name,value in zip(self._names, args):
-            instance.__setattr__(self._prefix+name, value)
+            setattr(instance, self._prefix+name, value)
+
         # Set remaining arguments as defaults
         for name in self._names[len(args):]:
             if name in self._defaults:
-                instance.__setattr__(self._prefix+name, self._defaults[name])
+                setattr(instance, self._prefix+name, self._defaults[name])
 
         # Set keyword arguments
         for name,value in kwargs.items():
             if name in self._names:
-                instance.__setattr__(self._prefix+name, value)
+                setattr(instance, self._prefix+name, value)
 
         # TODO: Custom error for undefined parameters
         for name in self._names:
