@@ -16,6 +16,16 @@ class Handler:
     Author:  Anshul Kharbanda
     Created: 11 - 9 - 2017
     """
+    def __call__(self, obj, *args, **kwargs):
+        """
+        Calls the handler on the given object
+
+        :param obj: the bound object
+
+        :return: NotImplemented
+        """
+        return NotImplemented
+
     def bind(self, obj):
         """
         Returns the handler bound to the given object
