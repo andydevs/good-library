@@ -26,6 +26,9 @@ class Handler:
         """
         # Create bound handler
         def __bound_handler(*args, **kwargs):
+            """
+            Bound handler to an object
+            """
             return self(obj, *args, **kwargs)
         update_wrapper(__bound_handler, self)
 
