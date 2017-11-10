@@ -10,7 +10,7 @@
 - ToString handlers
 
 ### 0.4-beta.0
-- Interface include `mixin` methods (using `@mixin` annotation)
+- Interface include methods (using `@include` annotation)
 - `@Extends` decorator for interfaces
 
 ## Ideas
@@ -35,7 +35,7 @@ class Runnable:
     def run(self):
         pass
 
-    @mixin
+    @include
     def can_you_run(self):
         print('Yes...')
 
