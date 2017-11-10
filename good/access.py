@@ -7,6 +7,43 @@ python code more expressive and easier to work with.
 Author:  Anshul Kharbanda
 Created: 10 - 6 - 2017
 """
+class Const:
+    """
+    A constant attribute.
+
+    Author:  Anshul Kharbanda
+    Created: 11 - 9 - 2017
+    """
+    def __init__(self, value):
+        """
+        Initializes the Const with the given value
+
+        :param value: the value to save
+        """
+        self._value = value
+
+    def __get__(self, instance, klass=None):
+        """
+        Returns the saved value
+
+        :param instance: the instance that contains the descriptor
+        :param klass: the class that contains the descriptor
+
+        :return: the saved value
+        """
+        return self._value
+
+    def __set__(self, instance, value):
+        """
+        Raises Exception if trying to set constant value
+
+        :param instance: the instance that contains the descriptor
+        :param value: the value to "set" to
+
+        :raises Exception: if trying to set constant value
+        """
+        # TODO: Create custom error for Accessor
+        raise Exception('Constant value {0} cannot be set'.format(self._value))
 
 class GetSet:
     """
@@ -59,6 +96,7 @@ class Get(GetSet):
 
         :raises Exception: Get's cannot be set
         """
+        # TODO: Create custom error for Accessor
         raise Exception('Get access {0} cannot be set'.format(self._key))
 
 class Set(GetSet):
@@ -77,4 +115,5 @@ class Set(GetSet):
 
         :raises Exception: Set's cannot be get
         """
+        # TODO: Create custom error for Accessor
         raise Exception('Set access {0} cannot be get'.format(self._key))

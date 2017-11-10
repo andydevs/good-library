@@ -7,6 +7,7 @@
 
 ### 0.3-beta.0
 - Const accessor
+- Class handlers
 - ToString handlers
 
 ### 0.4-beta.0
