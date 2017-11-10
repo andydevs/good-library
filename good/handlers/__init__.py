@@ -50,3 +50,22 @@ class InstanceHandler(Handler):
         """
         # Return bound handler if instance is defined else return handler
         return self if instance is None else self.bind(instance)
+
+class ClassHandler(Handler):
+    """
+    Base class for class handler classes
+
+    Author:  Anshul Kharbanda
+    Created: 11 - 9 - 2017
+    """
+    def __get__(self, instance, klass):
+        """
+        Returns the bound handler for the given class
+
+        :param instance: an instance of the class to bind to
+        :param klass: the class to bind to
+
+        :return: bound handler
+        """
+        # Return bound handler if class is defined else return handler
+        return self if klass is None else self.bind(klass)
