@@ -7,6 +7,8 @@ python code more expressive and easier to work with.
 Author:  Anshul Kharbanda
 Created: 10 - 6 - 2017
 """
+from functools import update_wrapper
+
 class InstanceHandler:
     """
     Base class for instance handler classes
@@ -23,11 +25,12 @@ class InstanceHandler:
 
         :return: bound handler
         """
-        __handle = lambda *args, **kwargs: self(instance, *args, **kwargs)
-        __handle.__doc__ = self.__generate_doc__(instance, klass)
+        __bound_handler = lambda *args, **kwargs: self(instance, *args, **kwargs)
+        update_wrapper(__bound_handler, self.__call__)
+        __bound_handler.__doc__ = self.__generate_doc__(instance, klass)
 
         # Return handler
-        return __handle
+        return __bound_handler
 
     def __generate_doc__(self, instance, klass=None):
         """
