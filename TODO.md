@@ -11,37 +11,39 @@
 - String handlers
 
 ### 0.4-beta.0
-- Interface include methods (using `@include` annotation)
-- `@Extends` decorator for interfaces
+- Instead of using `Implements`, just decorate the class with the interface to assert if it implements the interface
+    - The interface callable can also be used to check if an object implements an interface
+    - The interface callable can also extend interfaces
+- `default` built-in annotation for default methods
+- InterfaceError
 
 ## Ideas
 - Class Skeleton Constructor Class Handler
-- Procedure acceptor wrapper
-- Move everything OOP related to OOP package
+- Interface as a type of annotation
 
 ## Examples
 
-### Extends Decorator
+### New Interface System
 
 ```python
-from good.interface import Interface, Extends, Implements
+from good.interface import interface
 
-@Interface
+@interface
 class Walkable:
     def walk(self):
         pass
 
-@Extends(Walkable)
-@Interface
+@Walkable
+@interface
 class Runnable:
     def run(self):
         pass
 
-    @include
+    @default
     def can_you_run(self):
-        print('Yes...')
+        print('Yes!')
 
-@Implements(Runnable)
+@Runnable
 class SprintRunner:
     def walk(self):
         print('Walking...')
@@ -50,9 +52,31 @@ class SprintRunner:
         print('Running 100m!')
 
 usain_bolt = SprintRunner()
+jesse_owens = SprintRunner()
+
 usain_bolt.walk() # prints 'Walking...'
-usain_bolt.can_you_run() # prints 'Yes...'
+usain_bolt.can_you_run() # prints 'Yes!'
 usain_bolt.run() # prints 'Running 100m!'
+
+class Swimmer:
+    def swim(self):
+        print('Swimming!')
+
+michael_phelps = Swimmer()
+
+def have_a_race(runner1, runner2):
+    Runnable(runner1)
+    Runnable(runner2)
+    runner1.run()
+    runner2.run()
+
+have_a_race(usain_bolt, jesse_owens)
+# Prints 'Running 100m'
+# Prints 'Running 100m'
+
+have_a_race(usain_bolt, michael_phelps)
+# Raises an InterfaceError '<__main__.Swimmer object at 0x123456789abcdef> (of type Swimmer) is not Runnable!'
+
 ```
 
 ### Class Skeleton Constructor Class Handler
@@ -85,28 +109,4 @@ class jim:
     age = 23
 
 print(jim) # prints 'Person(\'Jim Slim\', 23)'
-```
-
-### Procedure Acceptor Wrapper
-
-```python
-from good.procedure import procedure_acceptor
-
-@procedure_acceptor
-def times(n, _proc):
-    _ = None
-    for i in range(n):
-        _ = _proc(i)
-    return _
-
-@times(100)
-def _(number):
-    if number % 5 == 0 and number % 3 == 0:
-        print('FizzBuzz')
-    elif number % 5 == 0:
-        print('Fizz')
-    elif number % 3 == 0:
-        print('Buzz')
-    else:
-        print(number)
 ```
