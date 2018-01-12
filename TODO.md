@@ -61,12 +61,15 @@ usain_bolt.run() # prints 'Running 100m!'
 class Swimmer:
     def swim(self):
         print('Swimming!')
-
+        
 michael_phelps = Swimmer()
 
 def have_a_race(runner1, runner2):
+    # Check if both objects are runnable
     Runnable(runner1)
     Runnable(runner2)
+
+    # Run both
     runner1.run()
     runner2.run()
 
