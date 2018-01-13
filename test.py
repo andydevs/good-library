@@ -10,5 +10,6 @@ Created: 10 - 6 - 2017
 from test import *
 from unittest import main as unittest_main
 
+# Main method
 if __name__ == '__main__':
     unittest_main(verbosity=2)
