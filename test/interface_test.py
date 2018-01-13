@@ -9,8 +9,9 @@ Created: 10 - 6 - 2017
 """
 import unittest
 import good
-from good.interface import speccable, ISpec, Interface, Implements
+from good.interface import speccable, ISpec, Interface
 from inspect import getfullargspec
+from copy import deepcopy
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -200,6 +201,17 @@ class InterfaceTest(unittest.TestCase):
         self.assertEqual(self.ITestInterface1.__name__, 'TestInterface1')
         self.assertEqual(self.ITestInterface1.__spec__, ISpec(TestInterface1))
 
+    def test_extended(self):
+        """
+        Tests extended method
+        """
+        new_spec = deepcopy(self.ITestInterface1.__spec__)
+        new_spec.update(self.ITestInterface3.__spec__)
+        new_name = self.ITestInterface3.__name__
+        NewInterface = self.ITestInterface1.extended(self.ITestInterface3)
+        self.assertEqual(NewInterface.__name__, new_name)
+        self.assertEqual(NewInterface.__spec__, new_spec)
+
     def test_implemented(self):
         """
         Tests implemented method
@@ -209,25 +221,18 @@ class InterfaceTest(unittest.TestCase):
         self.assertFalse(self.ITestInterface3.implemented(TestClass))
         self.assertFalse(self.ITestInterface4.implemented(TestClass))
 
-    def test_assert_implemented(self):
+    def test_call(self):
         """
-        Tests assert implemented method
+        Tests implementation assertion call method
         """
-        self.assertEqual(self.ITestInterface1.assert_implemented(TestClass),
-                         TestClass)
+        # Check implements for object
+        self.assertEqual(self.ITestInterface1(TestClass), TestClass)
+        test_instance = TestClass()
+        self.assertEqual(self.ITestInterface1(test_instance), test_instance)
         with self.assertRaises(Exception):
-            self.ITestInterface3.assert_implemented(TestClass)
+            self.ITestInterface3(TestClass)
 
-class ImplementsTest(unittest.TestCase):
-    """
-    Tests Implements function
-    """
-    ITestInterface1 = Interface(TestInterface1)
-
-    def test_function(self):
-        """
-        Tests Implements function
-        """
-        self.assertEqual(
-            Implements(self.ITestInterface1),
-            self.ITestInterface1.assert_implemented)
+        # Check extending interface
+        CallInfc = self.ITestInterface1(self.ITestInterface3)
+        ExtdInfc = self.ITestInterface1.extended(self.ITestInterface3)
+        self.assertEqual(CallInfc.__spec__, ExtdInfc.__spec__)

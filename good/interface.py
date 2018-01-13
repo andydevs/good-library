@@ -8,6 +8,7 @@ Author:  Anshul Kharbanda
 Created: 10 - 6 - 2017
 """
 from inspect import getfullargspec
+from copy import deepcopy
 
 def speccable(meth):
     """
@@ -75,9 +76,22 @@ class Interface:
         Creates the interface
 
         :param infc: the interface object to analyze
+        :param spec: the
         """
         self.__name__ = infc.__name__
         self.__spec__ = ISpec(infc)
+
+    def extended(self, infc):
+        """
+        Extends the given interface
+
+        :param infc: the interface to extend
+
+        :return: extended interface
+        """
+        nifc = deepcopy(infc)
+        nifc.__spec__.update(self.__spec__)
+        return nifc
 
     def implemented(self, impl):
         """
@@ -89,22 +103,20 @@ class Interface:
         """
         return self.__spec__.implemented(ISpec(impl))
 
-    def assert_implemented(self, impl):
+    def __call__(self, obj):
         """
-        Asserts that the given class implements the Interface else errors
+        Asserts that the given class or object implements the Interface else errors
 
         :param impl: the class to check
 
-        :return: the class if it implements the interface
+        :return: the class or object if it implements the interface
 
         :raises Exception: if class does not implement the Interface
         """
-        if self.implemented(impl): return impl
-        else:
-            raise Exception('Interface {infc} not implemented in {impl}'.format(
-                infc=self.__name__,
-                impl=impl.__name__
-            ))
+        if type(obj) is Interface: return self.extended(obj)
+        elif self.implemented(obj) or self.implemented(type(obj)): return obj
+        else: raise Exception('{obj} does not implement {infc}'.format(
+            obj=obj, infc=self.__name__))
 
     def __repr__(self):
         """
@@ -112,7 +124,7 @@ class Interface:
 
         :return: the string representation of the Interface
         """
-        return '<interface {} at {}>'.format(self.__name__, id(self))
+        return '<interface {}>'.format(self.__name__)
 
 def Implements(Interface):
     """
