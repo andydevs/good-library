@@ -9,127 +9,124 @@ Created: 10 - 6 - 2017
 """
 import unittest
 import good
-from good.interface import ISpec, Interface, Implements
+from good.interface import speccable, ISpec, Interface, Implements
 from inspect import getfullargspec
 
 class TestInterface1:
     """
-    First Interface to test interface methods
-
-    Author:  Anshul Kharbanda
-    Created: 10 - 19 - 2017
+    First Interface to test interface methods.
+    Test single method
     """
     def method1(self, arg1):
         """
         First interface method
-
-        :param arg1: the first method argument
         """
         pass
 
 class TestInterface2:
     """
     Second Interface to test interface methods
-
-    Author:  Anshul Kharbanda
-    Created: 10 - 19 - 2017
+    Adding second method to TestInterface1
     """
     def method1(self, arg1):
         """
         First interface method
-
-        :param arg1: the first method argument
         """
         pass
 
     def method2(self, arg1, arg2):
         """
         Second class method
-
-        :param arg1: the first method argument
-        :param arg2: the second method argument
         """
         pass
 
 class TestInterface3:
     """
     Third Interface to test interface methods
-
-    Author:  Anshul Kharbanda
-    Created: 10 - 19 - 2017
+    Removing first method and just having second and third
     """
     def method2(self, arg1, arg2):
         """
         Second class method
-
-        :param arg1: the first method argument
-        :param arg2: the second method argument
         """
         pass
 
     def method3(self, *args):
         """
         Third interface method
-
-        :param *args: variable arguments
+        Has varargs
         """
         pass
 
 class TestInterface4:
     """
     Fourth interface to test interface methods
-
-    Author:  Anshul Kharbanda
-    Created: 10 - 19 - 2017
+    Having all three methods
     """
     def method1(self, arg1):
         """
         First interface method
-
-        :param arg1: the first method argument
         """
         pass
 
     def method2(self, arg1, arg2):
         """
         Second class method
-
-        :param arg1: the first method argument
-        :param arg2: the second method argument
         """
         pass
 
     def method3(self, *args):
         """
         Third interface method
-
-        :param *args: variable arguments
         """
         pass
 
 class TestClass:
     """
     Test class to test interface methods
-
-    Author:  Anshul Kharbanda
-    Created: 10 - 19 - 2017
     """
     def method1(self, arg1):
         """
         First class method
-
-        :param arg1: the first method argument
         """
         pass
 
     def method2(self, arg1, arg2):
         """
         Second class method
-
-        :param arg1: the first method argument
-        :param arg2: the second method argument
         """
         pass
+
+class SpeccableTest(unittest.TestCase):
+    """
+    Tests the Speccable Method
+    """
+    class TestClass:
+        """
+        Random Test Class
+        """
+        # Example param (should not be speccable)
+        param = 2
+
+        def __init__(self, arg):
+            """
+            Initialize method (should not be speccable)
+            """
+            pass
+
+        def speccable_method(self, arg):
+            """
+            Speccable method (should be speccable)
+            """
+            pass
+
+    def test_function(self):
+        """
+        Tests the speccable function
+        """
+        self.assertFalse(speccable(self.TestClass.__dict__['param']))
+        self.assertFalse(speccable(self.TestClass.__dict__['__init__']))
+        self.assertTrue(speccable(self.TestClass.__dict__['speccable_method']))
 
 class ISpecTest(unittest.TestCase):
     """

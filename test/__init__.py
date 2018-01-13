@@ -13,11 +13,19 @@ from .handlers_test import (
     DunderInitHandlerTest,
     ValueStringHandlerTest,
     KeyValueStringHandlerTest )
-from .access_test import GetTest, SetTest, GetSetTest, ConstTest
+from .access_test import (
+    GetTest,
+    SetTest,
+    GetSetTest,
+    ConstTest )
 from .annotation_test import (
     AnnotationTypeTest,
     CreateConstructorTest,
     AnnotationConstructorTest,
     GetAllTest )
-from .interface_test import ISpecTest, InterfaceTest, ImplementsTest
+from .interface_test import (
+    SpeccableTest,
+    ISpecTest,
+    InterfaceTest,
+    ImplementsTest )
 from unittest import main as unittest_main

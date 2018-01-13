@@ -9,6 +9,18 @@ Created: 10 - 6 - 2017
 """
 from inspect import getfullargspec
 
+def speccable(meth):
+    """
+    Returns true if the given method is speccable, or recognised as part of an
+    interface spec and checked for when checking an instance for implementation
+
+    :param meth: the method being checked
+
+    :return: true if the given method is speccable
+    """
+    DONT_SPEC = ('__init__', '__new__')
+    return callable(meth) and meth.__name__ not in DONT_SPEC
+
 class ISpec(dict):
     """
     Interface Spec. Contains a set of method specs for the created object.
@@ -28,7 +40,7 @@ class ISpec(dict):
         return {
             entry[0]:getfullargspec(entry[1])
             for entry in item.__dict__.items()
-            if callable(entry[1])
+            if speccable(entry[1])
         }
 
     def __init__(self, item):
@@ -58,9 +70,6 @@ class Interface:
     Author:  Anshul Kharbanda
     Created 10 - 19 - 2017
     """
-    # Instantiate method names
-    INSTANTIATE_METHODS = ('__init__', '__new__')
-
     def __init__(self, infc):
         """
         Creates the interface
