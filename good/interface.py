@@ -125,14 +125,3 @@ class Interface:
         :return: the string representation of the Interface
         """
         return '<interface {}>'.format(self.__name__)
-
-def Implements(Interface):
-    """
-    Returns the assert_implemented method of the given interface (used for
-    decorator syntax)
-
-    :param Interface: the interface to be implemented
-
-    :return: the assert_implemented method of the given interface
-    """
-    return Interface.assert_implemented
