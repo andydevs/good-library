@@ -140,7 +140,7 @@ class Thinker:
         """
         pass
 
-@Implements(Thinker)
+@Thinker
 class Person:
     """
     An ordinary person
@@ -196,10 +196,10 @@ class MyInterface:
         pass
 ```
 
-The `Implements` decorator function provides a check on the given class, ensuring that it implements the defined methods in the given interface.
+Since the interface is callable, you can call the new Interface object as a decorator on a class, which provides a check on the given class, ensuring that it implements the defined methods in the given interface.
 
 ```python
-from good.interface import Interface, Implements
+from good.interface import Interface
 
 @Interface
 class MyInterface:
@@ -209,12 +209,43 @@ class MyInterface:
     def method2(self, arg2):
         pass
 
-@Implements(MyInterface)
+@MyInterface
 class MyClass:
     def method1(self, arg1, arg2):
         pass
 
     def method2(self, arg2):
+        pass
+```
+
+Calling the interface on another interface will extends the interface, adding the methods of this current interface to the new interface
+
+```python
+from good.interface import Interface
+
+@Interface
+class MyInterface1:
+    def method1(self):
+        pass
+
+@MyInterface1
+@Interface
+class MyInterface2:
+    def method2(self, arg1, arg2):
+        pass
+
+    def method3(self, arg2):
+        pass
+
+@MyInterface2
+class MyClass:
+    def method1(self):
+        pass
+
+    def method2(self, arg1, arg2):
+        pass
+
+    def method3(self, arg2):
         pass
 ```
 
