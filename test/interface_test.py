@@ -9,7 +9,7 @@ Created: 10 - 6 - 2017
 """
 import unittest
 import good
-from good.interface import speccable, ISpec, Interface
+from good.interface import ISpec, Interface
 from inspect import getfullargspec
 from copy import deepcopy
 
@@ -123,18 +123,6 @@ class TestClass:
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-class SpeccableTest(unittest.TestCase):
-    """
-    Tests the Speccable Method
-    """
-    def test_function(self):
-        """
-        Tests the speccable function
-        """
-        self.assertFalse(speccable(TestClass.__init__))
-        self.assertTrue(speccable(TestClass.method1))
-        self.assertFalse(speccable(TestClass.param))
-
 class ISpecTest(unittest.TestCase):
     """
     Tests the ISpec class
@@ -147,6 +135,14 @@ class ISpecTest(unittest.TestCase):
         'method1': getfullargspec(TestClass.method1),
         'method2': getfullargspec(TestClass.method2)
     }
+
+    def test_speccable(self):
+        """
+        Tests the speccable method
+        """
+        self.assertFalse(ISpec.speccable(TestClass.__init__))
+        self.assertTrue(ISpec.speccable(TestClass.method1))
+        self.assertFalse(ISpec.speccable(TestClass.param))
 
     def test_specdict(self):
         """

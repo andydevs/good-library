@@ -24,7 +24,6 @@ from .annotation_test import (
     AnnotationConstructorTest,
     GetAllTest )
 from .interface_test import (
-    SpeccableTest,
     ISpecTest,
     InterfaceTest )
 from unittest import main as unittest_main

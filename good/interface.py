@@ -30,6 +30,19 @@ class ISpec(dict):
     Created: 10 - 19 - 2017
     """
     @staticmethod
+    def speccable(meth):
+        """
+        Returns true if the given method is speccable, or recognised as part of an
+        interface spec and checked for when checking an instance for implementation
+
+        :param meth: the method being checked
+
+        :return: true if the given method is speccable
+        """
+        DONT_SPEC = ('__init__', '__new__')
+        return callable(meth) and meth.__name__ not in DONT_SPEC
+
+    @staticmethod
     def specdict(item):
         """
         Returns the dictionary of method specs in the given item
@@ -41,7 +54,7 @@ class ISpec(dict):
         return {
             entry[0]:getfullargspec(entry[1])
             for entry in item.__dict__.items()
-            if speccable(entry[1])
+            if ISpec.speccable(entry[1])
         }
 
     def __init__(self, item):
