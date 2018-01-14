@@ -77,7 +77,6 @@ class Interface:
         Creates the interface
 
         :param infc: the interface object to analyze
-        :param spec: the
         """
         self.__name__ = infc.__name__
         self.__spec__ = ISpec(infc)
