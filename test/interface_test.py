@@ -229,8 +229,8 @@ class InterfaceTest(unittest.TestCase):
         """
         Tests instance assertion __call__
         """
-        test_instance = TestClass()
-        self.assertEqual(self.ITestInterface1(test_instance), test_instance)
+        test_inst = TestClass()
+        self.assertEqual(self.ITestInterface1(test_inst), test_inst)
 
     def test_call_for_assert_class_error(self):
         """
@@ -242,8 +242,8 @@ class InterfaceTest(unittest.TestCase):
         """
         Tests erroring instance assertion __call__
         """
-        test_instance = TestClass()
-        self.assertRaises(Exception, lambda: self.ITestInterface3(test_instance))
+        test_inst = TestClass()
+        self.assertRaises(Exception, lambda: self.ITestInterface3(test_inst))
 
     def test_call_for_extend(self):
         """
