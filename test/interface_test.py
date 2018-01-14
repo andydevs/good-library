@@ -9,7 +9,7 @@ Created: 10 - 6 - 2017
 """
 import unittest
 import good
-from good.interface import ISpec, Interface
+from good.interface import ISpec, Interface, default
 from inspect import getfullargspec
 from copy import deepcopy
 
@@ -89,6 +89,18 @@ class TestInterface4:
         Third interface method
         """
         pass
+
+class TestInterface5:
+    """
+    Fifth interface to test interface methods
+    Default methods
+    """
+    def method1(self):
+        pass
+
+    @default
+    def method4(self):
+        return 'Implemented by Default'
 
 class TestClass:
     """
@@ -191,9 +203,9 @@ class InterfaceTest(unittest.TestCase):
         """
         Tests extended method
         """
+        new_name = self.ITestInterface3.__name__
         new_spec = deepcopy(self.ITestInterface1.__spec__)
         new_spec.update(self.ITestInterface3.__spec__)
-        new_name = self.ITestInterface3.__name__
         NewInterface = self.ITestInterface1.extended(self.ITestInterface3)
         self.assertEqual(NewInterface.__name__, new_name)
         self.assertEqual(NewInterface.__spec__, new_spec)
@@ -207,18 +219,36 @@ class InterfaceTest(unittest.TestCase):
         self.assertFalse(self.ITestInterface3.implemented(TestClass))
         self.assertFalse(self.ITestInterface4.implemented(TestClass))
 
-    def test_call(self):
+    def test_call_for_assert_classes(self):
         """
-        Tests implementation assertion call method
+        Tests class assertion __call__
         """
-        # Check implements for object
         self.assertEqual(self.ITestInterface1(TestClass), TestClass)
+
+    def test_call_for_assert_instance(self):
+        """
+        Tests instance assertion __call__
+        """
         test_instance = TestClass()
         self.assertEqual(self.ITestInterface1(test_instance), test_instance)
-        with self.assertRaises(Exception):
-            self.ITestInterface3(TestClass)
 
-        # Check extending interface
+    def test_call_for_assert_class_error(self):
+        """
+        Tests erroring class assertion __call__
+        """
+        self.assertRaises(Exception, lambda: self.ITestInterface3(TestClass))
+
+    def test_call_for_assert_instance_error(self):
+        """
+        Tests erroring instance assertion __call__
+        """
+        test_instance = TestClass()
+        self.assertRaises(Exception, lambda: self.ITestInterface3(test_instance))
+
+    def test_call_for_extend(self):
+        """
+        Tests extension __call__
+        """
         CallInfc = self.ITestInterface1(self.ITestInterface3)
         ExtdInfc = self.ITestInterface1.extended(self.ITestInterface3)
         self.assertEqual(CallInfc.__spec__, ExtdInfc.__spec__)

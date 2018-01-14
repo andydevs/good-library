@@ -9,6 +9,17 @@ Created: 10 - 6 - 2017
 """
 from inspect import getfullargspec
 from copy import deepcopy
+from .annotation import Annotation
+
+@Annotation
+class default:
+    """
+    Indicates which methods in an interface have a default implementation
+
+    Author:  Anshul Kharbanda
+    Created: 1 - 14 - 2017
+    """
+    pass
 
 class ISpec(dict):
     """
