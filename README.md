@@ -237,16 +237,18 @@ class MyInterface2:
     def method3(self, arg2):
         pass
 
-@MyInterface2
-class MyClass:
-    def method1(self):
-        pass
-
-    def method2(self, arg1, arg2):
-        pass
-
-    def method3(self, arg2):
-        pass
+# Creates:
+#
+# @Interface
+# class MyInterface2:
+#     def method1(self):
+#         pass
+#
+#     def method2(self, arg1, arg2):
+#         pass
+#
+#     def method3(self, arg2):
+#         pass
 ```
 
 ### Accessors
