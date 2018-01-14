@@ -152,8 +152,8 @@ class ISpecTest(unittest.TestCase):
         """
         Tests the speccable method
         """
-        self.assertFalse(ISpec.speccable(TestClass.__init__))
         self.assertTrue(ISpec.speccable(TestClass.method1))
+        self.assertFalse(ISpec.speccable(TestClass.__init__))
         self.assertFalse(ISpec.speccable(TestClass.param))
 
     def test_specdict(self):
@@ -252,3 +252,4 @@ class InterfaceTest(unittest.TestCase):
         CallInfc = self.ITestInterface1(self.ITestInterface3)
         ExtdInfc = self.ITestInterface1.extended(self.ITestInterface3)
         self.assertEqual(CallInfc.__spec__, ExtdInfc.__spec__)
+        self.assertEqual(ExtdInfc.__name__, self.ITestInterface3.__name__)
