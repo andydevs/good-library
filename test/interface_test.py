@@ -94,6 +94,15 @@ class TestClass:
     """
     Test class to test interface methods
     """
+    # Example param (should not be speccable)
+    param = 2
+
+    def __init__(self):
+        """
+        Initialize method (should not be speccable)
+        """
+        pass
+
     def method1(self, arg1):
         """
         First class method
@@ -103,25 +112,6 @@ class TestClass:
     def method2(self, arg1, arg2):
         """
         Second class method
-        """
-        pass
-
-class TestSpeccableClass:
-    """
-    Random Test Class for SpeccableTest
-    """
-    # Example param (should not be speccable)
-    param = 2
-
-    def __init__(self, arg):
-        """
-        Initialize method (should not be speccable)
-        """
-        pass
-
-    def speccable_method(self, arg):
-        """
-        Speccable method (should be speccable)
         """
         pass
 
@@ -141,9 +131,9 @@ class SpeccableTest(unittest.TestCase):
         """
         Tests the speccable function
         """
-        self.assertFalse(speccable(TestSpeccableClass.param))
-        self.assertFalse(speccable(TestSpeccableClass.__init__))
-        self.assertTrue(speccable(TestSpeccableClass.speccable_method))
+        self.assertFalse(speccable(TestClass.__init__))
+        self.assertTrue(speccable(TestClass.method1))
+        self.assertFalse(speccable(TestClass.param))
 
 class ISpecTest(unittest.TestCase):
     """
