@@ -222,6 +222,7 @@ class InterfaceTest(unittest.TestCase):
         self.assertTrue(ITestInterface2.implemented(TestClass))
         self.assertFalse(ITestInterface3.implemented(TestClass))
         self.assertFalse(ITestInterface4.implemented(TestClass))
+        self.assertTrue(ITestInterface5.implemented(TestClass))
 
     def test_call_for_assert_classes(self):
         """
