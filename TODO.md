@@ -15,6 +15,7 @@
     - The interface callable can also be used to check if an object implements an interface
     - The interface callable can also extend interfaces
 - `default` built-in annotation for default methods
+    - Values are included by default
 - InterfaceError
 
 ## Ideas
@@ -61,7 +62,7 @@ usain_bolt.run() # prints 'Running 100m!'
 class Swimmer:
     def swim(self):
         print('Swimming!')
-        
+
 michael_phelps = Swimmer()
 
 def have_a_race(runner1, runner2):

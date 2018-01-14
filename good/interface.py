@@ -10,18 +10,6 @@ Created: 10 - 6 - 2017
 from inspect import getfullargspec
 from copy import deepcopy
 
-def speccable(meth):
-    """
-    Returns true if the given method is speccable, or recognised as part of an
-    interface spec and checked for when checking an instance for implementation
-
-    :param meth: the method being checked
-
-    :return: true if the given method is speccable
-    """
-    DONT_SPEC = ('__init__', '__new__')
-    return callable(meth) and meth.__name__ not in DONT_SPEC
-
 class ISpec(dict):
     """
     Interface Spec. Contains a set of method specs for the created object.
