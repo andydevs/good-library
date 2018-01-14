@@ -31,6 +31,7 @@ class TestInterface1:
         First interface method
         """
         pass
+ITestInterface1 = Interface(TestInterface1)
 
 class TestInterface2:
     """
@@ -48,6 +49,7 @@ class TestInterface2:
         Second class method
         """
         pass
+ITestInterface2 = Interface(TestInterface2)
 
 class TestInterface3:
     """
@@ -66,6 +68,7 @@ class TestInterface3:
         Has varargs
         """
         pass
+ITestInterface3 = Interface(TestInterface3)
 
 class TestInterface4:
     """
@@ -89,6 +92,7 @@ class TestInterface4:
         Third interface method
         """
         pass
+ITestInterface4 = Interface(TestInterface4)
 
 class TestInterface5:
     """
@@ -100,7 +104,12 @@ class TestInterface5:
 
     @default
     def method4(self):
+        """
+        Fourth interface method
+        Default method
+        """
         return 'Implemented by Default'
+ITestInterface5 = Interface(TestInterface5)
 
 class TestClass:
     """
@@ -187,26 +196,21 @@ class InterfaceTest(unittest.TestCase):
     Author:  Anshul Kharbanda
     Created: 10 - 19 - 2017
     """
-    ITestInterface1 = Interface(TestInterface1)
-    ITestInterface2 = Interface(TestInterface2)
-    ITestInterface3 = Interface(TestInterface3)
-    ITestInterface4 = Interface(TestInterface4)
-
     def test_initialization(self):
         """
         Tests init method
         """
-        self.assertEqual(self.ITestInterface1.__name__, 'TestInterface1')
-        self.assertEqual(self.ITestInterface1.__spec__, ISpec(TestInterface1))
+        self.assertEqual(ITestInterface1.__name__, 'TestInterface1')
+        self.assertEqual(ITestInterface1.__spec__, ISpec(TestInterface1))
 
     def test_extended(self):
         """
         Tests extended method
         """
-        new_name = self.ITestInterface3.__name__
-        new_spec = deepcopy(self.ITestInterface1.__spec__)
-        new_spec.update(self.ITestInterface3.__spec__)
-        NewInterface = self.ITestInterface1.extended(self.ITestInterface3)
+        new_name = ITestInterface3.__name__
+        new_spec = deepcopy(ITestInterface1.__spec__)
+        new_spec.update(ITestInterface3.__spec__)
+        NewInterface = ITestInterface1.extended(ITestInterface3)
         self.assertEqual(NewInterface.__name__, new_name)
         self.assertEqual(NewInterface.__spec__, new_spec)
 
@@ -214,42 +218,42 @@ class InterfaceTest(unittest.TestCase):
         """
         Tests implemented method
         """
-        self.assertTrue(self.ITestInterface1.implemented(TestClass))
-        self.assertTrue(self.ITestInterface2.implemented(TestClass))
-        self.assertFalse(self.ITestInterface3.implemented(TestClass))
-        self.assertFalse(self.ITestInterface4.implemented(TestClass))
+        self.assertTrue(ITestInterface1.implemented(TestClass))
+        self.assertTrue(ITestInterface2.implemented(TestClass))
+        self.assertFalse(ITestInterface3.implemented(TestClass))
+        self.assertFalse(ITestInterface4.implemented(TestClass))
 
     def test_call_for_assert_classes(self):
         """
         Tests class assertion __call__
         """
-        self.assertEqual(self.ITestInterface1(TestClass), TestClass)
+        self.assertEqual(ITestInterface1(TestClass), TestClass)
 
     def test_call_for_assert_instance(self):
         """
         Tests instance assertion __call__
         """
         test_inst = TestClass()
-        self.assertEqual(self.ITestInterface1(test_inst), test_inst)
+        self.assertEqual(ITestInterface1(test_inst), test_inst)
 
     def test_call_for_assert_class_error(self):
         """
         Tests erroring class assertion __call__
         """
-        self.assertRaises(Exception, lambda: self.ITestInterface3(TestClass))
+        with self.assertRaises(Exception): ITestInterface3(TestClass)
 
     def test_call_for_assert_instance_error(self):
         """
         Tests erroring instance assertion __call__
         """
         test_inst = TestClass()
-        self.assertRaises(Exception, lambda: self.ITestInterface3(test_inst))
+        with self.assertRaises(Exception): ITestInterface3(test_inst)
 
     def test_call_for_extend(self):
         """
         Tests extension __call__
         """
-        CallInfc = self.ITestInterface1(self.ITestInterface3)
-        ExtdInfc = self.ITestInterface1.extended(self.ITestInterface3)
+        CallInfc = ITestInterface1(ITestInterface3)
+        ExtdInfc = ITestInterface1.extended(ITestInterface3)
         self.assertEqual(CallInfc.__spec__, ExtdInfc.__spec__)
-        self.assertEqual(ExtdInfc.__name__, self.ITestInterface3.__name__)
+        self.assertEqual(ExtdInfc.__name__, ITestInterface3.__name__)
