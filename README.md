@@ -106,7 +106,7 @@ class Person:
 
 _The Good Way_
 ```python
-from good.interface import Interface, Implements
+from good.interface import Interface
 from good.access import Get, Set, GetSet, Const
 from good.annotation import Annotation
 from good.handlers.init import UnderscoreInitHandler
