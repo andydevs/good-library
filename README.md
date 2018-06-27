@@ -1,5 +1,12 @@
 # The Good Library
 
+NOTICE: This package is now deprecated! The Good Library is now splitting up into multiple packages, the links to which are listed below. Read [This Post](https://andydevs.github.io/update/2018/06/26/splitting-up-the-good-library-monolithic-troubles.html) to learn more.
+
+- [good-handlers](https://github.com/andydevs/good-handlers)
+- [good-interface](https://github.com/andydevs/good-interface)
+- good-access
+- good-annotation
+
 "Everyone hates software. It's messy and it gets everywhere." - [Sam Gallagher](https://github.com/sjgallagher2) 2017
 
 The Good Library is a collection of programming and syntax tools that makes your python code more expressive and easier to work with.
